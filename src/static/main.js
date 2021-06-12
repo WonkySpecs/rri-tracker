@@ -14,7 +14,7 @@ function moving_averages(nums, window_size = 10) {
 
 function average_score_chart(json) {
     let svg_width = 800, svg_height = 600,
-        margin = {top: 50, right: 50, bottom: 50, left: 50},
+        margin = {top: 50, right: 50, bottom: 50, left: 80},
         width = svg_width - margin.left - margin.right,
         height = svg_height - margin.top - margin.bottom;
 
@@ -47,13 +47,14 @@ function average_score_chart(json) {
     let y_label = svg.append("text")
         .attr("text-anchor", "middle")
         .attr("x", -svg_height / 2)
-        .attr("y", "0.8em")
+        .attr("y", "1.6em")
         .attr("class", "axis")
         .attr("transform", "rotate(-90)");
 
     let tooltip = d3.select("main")
         .append("div")
-        .attr("class", "tooltip");
+        .attr("class", "tooltip")
+        .style("display", "none");
 
     let mouseover = d => tooltip.style("display", "block");
     let mousemove = (ev, data) => {

@@ -7,6 +7,10 @@ main {
     background-color: #eef;
 }
 
+#dataTable th {
+    text-align: left;
+}
+
 #charts {
     background-color: #203740;
     border: solid 3px black;
@@ -15,14 +19,15 @@ main {
 .line {
     fill: none;
     stroke: #7ce855;
-    stroke-width: 5;
+    stroke-width: 4;
 }
 
 :root {
-    --axis-color: #bbb;
+    --axis-color: #ececec;
 }
 .axis path {
     stroke: var(--axis-color);
+    stroke-width: 2;
 }
 .axis g line {
     stroke: var(--axis-color);
