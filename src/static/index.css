@@ -1,0 +1,44 @@
+main {
+    display: flex;
+}
+
+
+#dataTable {
+    background-color: #eef;
+}
+
+#charts {
+    background-color: #203740;
+    border: solid 3px black;
+}
+
+.line {
+    fill: none;
+    stroke: #7ce855;
+    stroke-width: 5;
+}
+
+:root {
+    --axis-color: #bbb;
+}
+.axis path {
+    stroke: var(--axis-color);
+}
+.axis g line {
+    stroke: var(--axis-color);
+}
+.axis g text {
+    fill: var(--axis-color);
+}
+text.axis {
+    fill: var(--axis-color);
+}
+
+.tooltip {
+    position: absolute;
+    background-color: white;
+    border: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 5px;;
+}

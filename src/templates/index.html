@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+{% block title %}Home{% endblock %}
+{% block page_scripts %}
+    <script src="//d3js.org/d3.v6.min.js"></script>
+    <script src={{url_for('static', filename="main.js")}}></script>
+    <link rel="stylesheet" href={{url_for('static', filename="index.css")}}>
+{% endblock %}
+{% block body %}
+<h1>Railroad Ink Tracker</h1>
+<main>
+    <table id="dataTable"></table>
+    <div id="charts">
+        <div>
+            <input type="range" id="windowSlider" min=1 max=20>
+        </div>
+    </div>
+</main>
+{% endblock %}
