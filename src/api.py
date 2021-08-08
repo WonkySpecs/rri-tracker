@@ -1,7 +1,7 @@
 import os
-import time
+import datetime
 import csv
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request, abort, Response
 
 api = Blueprint("api", __name__)
 DATA_FILE = os.path.expanduser("~/games.csv")
@@ -12,7 +12,7 @@ def parse_row(row, headers):
         if v == "":
             res[k] = None
         elif k == "expansions":
-            res[k] = v.split(":")
+            res[k] = v.split("+")
         elif k == "goals":
             res[k] = v.split(":")
         else:
@@ -20,7 +20,7 @@ def parse_row(row, headers):
     return res
 
 
-@api.route("/games")
+@api.get("/games")
 def games():
     headers = []
     rows = []
@@ -34,3 +34,29 @@ def games():
                 continue
             rows.append(parse_row(row, headers))
     return jsonify(rows)
+
+
+@api.post("/games")
+def add_game():
+    new_game = request.json
+    if not new_game:
+        abort(Response("New game must be in JSON format", status=415))
+
+    new_game["date"] = datetime.date.today().isoformat()
+    new_game["goals"] = ":".join(new_game["goals"])
+
+    expansions = new_game["expansion(s)"]
+    if isinstance(expansions, list):
+        new_game["expansion(s)"] = "+".join(expansions)
+
+    num_rows = 0
+    with open(DATA_FILE, "r") as f:
+        headers = [h.strip() for h in f.readline().split(",")]
+        while f.readline():
+            num_rows += 1
+    new_game["id"] = num_rows + 1
+
+    with open(DATA_FILE, "a") as f:
+        writer = csv.DictWriter(f, fieldnames=headers)
+        writer.writerow(new_game)
+    return games()
