@@ -1,3 +1,32 @@
+function open_new_game_input() {
+    document.querySelector("#controls button").hidden = true;
+    document.querySelector("#controls div").hidden = false;
+}
+
+function close_new_game_input() {
+    document.querySelector("#controls button").hidden = false;
+    document.querySelector("#controls > div").hidden = true;
+    document.querySelectorAll("#controls input").forEach(i => i.value = "");
+}
+
+function submit_new_game() {
+    const goals = [...Array(3).keys()]
+        .map(i => i + 1)
+        .map(i => ["newGameInputGoal" + i, "newGameInputGoalScore" + i])
+        .map(([a, b]) => document.getElementById(a).value + document.getElementById(b).value );
+    const game = {
+        "expansion(s)": document.getElementById("newGameInputExpansions").value.split("+"),
+        "goals": goals,
+        "score": document.getElementById("newGameInputScore").value,
+    }
+    let data = fetch(
+        '/api/games', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(game)
+        });
+}
+
 function moving_averages(nums, window_size = 10) {
     let window = [];
     let averages = [];

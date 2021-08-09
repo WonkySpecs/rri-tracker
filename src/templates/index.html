@@ -7,6 +7,45 @@
 {% endblock %}
 {% block body %}
 <h1>Railroad Ink Tracker</h1>
+<div id="controls">
+    <button type="button" onclick="open_new_game_input()">+</button>
+    <div hidden="true">
+        <button type="button" onclick="close_new_game_input()">&#10006;</button>
+        <div>
+            <label>Expansion(s):
+                <input id="newGameInputExpansions">
+            </label>
+        </div>
+        <div>
+            <label>Goals:
+                <table>
+                    <tr><th /><th>Goal</th><th>Score</th></tr>
+                    <tr>
+                        <td>1</td>
+                        <td><input id="newGameInputGoal1"></td>
+                        <td><input id="newGameInputGoalScore1"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><input id="newGameInputGoal2"></td>
+                        <td><input id="newGameInputGoalScore2"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><input id="newGameInputGoal3"></td>
+                        <td><input id="newGameInputGoalScore3"></td>
+                    </tr>
+                </table>
+            </label>
+        </div>
+        <div>
+            <label>Score:
+                <input id="newGameInputScore">
+            </label>
+        </div>
+        <button type="button" onclick="submit_new_game()">Submit</button>
+    </div>
+</div>
 <main>
     <table id="dataTable"></table>
     <div id="charts">
